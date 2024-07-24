@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+  <title>
+    <%= calculation.user.name %>
+  </title>
+</head>
+
+<body style="display: flex; flex-direction: column; gap: 10px; font-size: small;">
+  <main>
+    <h2 style="text-align: center;">RELATÓRIO DE HORAS EXTRAS TRABALHADAS</h2>
+    <table style="border-collapse: collapse; width: 100%;">
+      <thead>
+        <tr style="page-break-inside: avoid;">
+          <th colspan="2"
+            style="background-color: #A2A2A2; padding: 2px 5px; text-align: left; border: 1px solid #000;">Empresa
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="page-break-inside: avoid;">
+          <th
+            style="width: 15%; background-color: #C3C3C3; text-align: left; padding: 2px 5px; border: 1px solid #000;">
+            Razão Social</th>
+          <td style="border: 1px solid #000; padding: 2px 5px;">
+            <%= calculation.company.company_name %>
+          </td>
+        </tr>
+        <tr style="page-break-inside: avoid;">
+          <th
+            style="width: 15%; background-color: #C3C3C3; text-align: left; padding: 2px 5px; border: 1px solid #000;">
+            CNPJ</th>
+          <td style="border: 1px solid #000; padding: 2px 5px;">
+            <%= calculation.company.cnpj %>
+          </td>
+        </tr>
+        <tr style="page-break-inside: avoid;">
+          <th
+            style="width: 15%; background-color: #C3C3C3; text-align: left; padding: 2px 5px; border: 1px solid #000;">
+            Endereço</th>
+          <td style="border: 1px solid #000; padding: 2px 5px;">
+            <%= calculation.company.address %>
+          </td>
+        </tr>
+        <tr style="page-break-inside: avoid;">
+          <th
+            style="width: 15%; background-color: #C3C3C3; text-align: left; padding: 2px 5px; border: 1px solid #000;">
+            Telefone</th>
+          <td style="border: 1px solid #000; padding: 2px 5px;">
+            <%= calculation.company.phone %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table style="margin-top: 5px;border-collapse: collapse; width: 100%;">
+      <thead>
+        <tr style="page-break-inside: avoid;">
+          <th colspan="2"
+            style="background-color: #A2A2A2; padding: 2px 5px; text-align: left; border: 1px solid #000;">Colaborador
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="page-break-inside: avoid;">
+          <th
+            style="width: 15%; background-color: #C3C3C3; text-align: left; padding: 2px 5px; border: 1px solid #000;">
+            Nome</th>
+          <td style="border: 1px solid #000; padding: 2px 5px;">
+            <%= calculation.user.name %>
+          </td>
+        </tr>
+        <tr style="page-break-inside: avoid;">
+          <th
+            style="width: 15%; background-color: #C3C3C3; text-align: left; padding: 2px 5px; border: 1px solid #000;">
+            Departamento</th>
+          <td style="border: 1px solid #000; padding: 2px 5px;">
+            <% if (calculation.user.groups && calculation.user.groups.length> 0) { %>
+              <% calculation.user.groups.forEach(group=> { %>
+                <%= group.name %>
+                  <% }) %>
+                    <% } else { %>
+                      "Nenhum grupo encontrado"
+                      <% } %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <% function formatDuration(seconds) { %>
+      <% const h=Math.floor(seconds / 3600); %>
+        <% const m=Math.floor((seconds % 3600) / 60); %>
+          <% const s=seconds % 60; %>
+            <% return `${h.toString().padStart(2, '0' )}:${m.toString().padStart(2, '0'
+              )}:${s.toString().padStart(2, '0' )}`; %>
+              <% } %>
+                <table style="margin-top: 5px; border-collapse: collapse; width: 100%;">
+                  <tr style="page-break-inside: avoid;">
+                    <th colspan="6"
+                      style="background-color: #A2A2A2; padding: 2px 5px; text-align: left; border: 1px solid #000;">
+                      Consulta
+                    </th>
+                  </tr>
+                  <tr style="page-break-inside: avoid;">
+                    <th
+                      style="width: 15%; background-color: #C3C3C3; text-align: left; padding: 2px 5px; border: 1px solid #000;">
+                      Início</th>
+                    <td style="border: 1px solid #000; padding: 2px 5px; width: 25%;">
+                      <%= calculation.start.toLocaleString() %>
+                    </td>
+                    <th
+                      style="width: 15%;background-color: #C3C3C3; text-align: left; padding: 2px 5px; border: 1px solid #000;">
+                      Fim</th>
+                    <td style="border: 1px solid #000; padding: 2px 5px; width: 25%;">
+                      <%= calculation.end.toLocaleString() %>
+                    </td>
+                  </tr>
+                  <tr style="page-break-inside: avoid;">
+                    <th
+                      style="width: 15%; background-color: #C3C3C3; text-align: left; padding: 2px 5px; border: 1px solid #000;">
+                      Duração Total</th>
+                    <td style="border: 1px solid #000; padding: 2px 5px;">
+                      <%= formatDuration(calculation.duration) %>
+                    </td>
+                    <th
+                      style="width: 15%; background-color: #C3C3C3; text-align: left; padding: 2px 5px; border: 1px solid #000;">
+                      Valor Hora</th>
+                    <td style="border: 1px solid #000; padding: 2px 5px;">
+                      <%= calculation.price_per_hour.toLocaleString("pt-br",{style: "currency" ,currency: "BRL" }) %>
+                    </td>
+                  </tr>
+                  <tr style="page-break-inside: avoid;">
+                    <th
+                      style="width: 15%; background-color: #C3C3C3; text-align: left; padding: 2px 5px; border: 1px solid #000;">
+                      Valor Total</th>
+                    <td colspan="3" style="border: 1px solid #000; padding: 2px 5px;">
+                      <%= calculation.total.toLocaleString("pt-br",{style: "currency" ,currency: "BRL" }) %>
+                    </td>
+                  </tr>
+                </table>
+
+                <table style="margin-top: 5px; border-collapse: collapse; width: 100%;">
+                  <thead>
+                    <tr style="page-break-inside: avoid;">
+                      <th style="background-color: #A2A2A2; padding: 2px 5px; border: 1px solid #000;">Entrada</th>
+                      <th style="background-color: #A2A2A2; padding: 2px 5px; border: 1px solid #000;">Saída</th>
+                      <th style="background-color: #A2A2A2; padding: 2px 5px; border: 1px solid #000;">Duração</th>
+                      <th style="background-color: #A2A2A2; padding: 2px 5px; border: 1px solid #000;">Total</th>
+                      <th style="background-color: #A2A2A2; padding: 2px 5px; border: 1px solid #000;">Observação</th>
+                    </tr>
+                  </thead>
+                  <tbody style="text-align: center">
+                    <% function formatDuration(seconds) { %>
+                      <% const h=Math.floor(seconds / 3600); %>
+                        <% const m=Math.floor((seconds % 3600) / 60); %>
+                          <% const s=seconds % 60; %>
+                            <% return `${h.toString().padStart(2, '0' )}:${m.toString().padStart(2, '0'
+                              )}:${s.toString().padStart(2, '0' )}`; %>
+                              <% } %>
+                                <% calculation.overtime.forEach((overtime, index)=> { %>
+                                  <tr style="page-break-inside: avoid;">
+                                    <td style="border: 1px solid #000; padding: 2px 5px;">
+                                      <%= overtime.entry ? new Date(overtime.entry).toLocaleString() : "-" %>
+                                    </td>
+                                    <td style="border: 1px solid #000; padding: 2px 5px;">
+                                      <%= overtime.exit ? new Date(overtime.exit).toLocaleString() : "-" %>
+                                    </td>
+                                    <td style="border: 1px solid #000; padding: 2px 5px;">
+                                      <%= formatDuration(overtime.duration) %>
+                                    </td>
+                                    <td style="border: 1px solid #000; padding: 2px 5px;">
+                                      <%= overtime.total.toLocaleString("pt-br",{style: "currency" ,currency: "BRL" })
+                                        %>
+                                    </td>
+                                    <td style="border: 1px solid #000; padding: 2px 5px;">
+                                      <%= overtime.observation ? overtime.observation : "-" %>
+                                    </td>
+                                  </tr>
+                                  <%})%>
+                  </tbody>
+                </table>
+  </main>
+
+  <footer style="margin-top: 40px;">
+    <table style="width: 100%; border-spacing: 30px;">
+      <tr style="page-break-inside: avoid;">
+        <th style="border-top: 1px solid #000; padding: 4px 6px; text-align: center;">
+          <%= calculation.user.name %>
+        </th>
+        <th style="border-top: 1px solid #000; padding: 4px 10px; text-align: center;">SUPERVISOR</th>
+        <th style="border-top: 1px solid #000; padding: 4px 6px; text-align: center;">RECURSOS HUMANOS</th>
+      </tr>
+    </table>
+  </footer>
+</body>
+
+</html>

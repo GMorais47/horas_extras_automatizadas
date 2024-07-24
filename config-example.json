@@ -1,0 +1,24 @@
+{
+    "COMPANY": {
+        "COMPANY_NAME": "",
+        "CNPJ": "",
+        "ADDRESS": "",
+        "PHONE": ""
+    },
+    "ADDRESS_DEVICE": "",
+    "USER_DEVICE": "",
+    "PASSWORD_DEVICE": "",
+    "PRICE_PER_HOUR": 0,
+    "OVERTIME_PATH": "",
+    "MAIL": {
+        "HOST": "",
+        "FROM": "",
+        "PORT": 0,
+        "SECURE": false,
+        "AUTH": {
+            "USER": "",
+            "PASS": ""
+        },
+        "TO": []
+    }
+}
